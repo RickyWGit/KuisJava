@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gudang.controller.TambahSupplierController">
+   <children>
+      <Label text="Tambah Supplier Baru">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label minWidth="80.0" text="Kode Supplier" />
+            <TextField fx:id="txtTbhKode" promptText="Wajib diisi" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="83.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label minWidth="80.0" text="Nama Supplier" />
+            <TextField fx:id="txtTbhNama" promptText="Wajib diisi" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="113.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label minWidth="80.0" text="Alamat" />
+            <TextField fx:id="txtTbhAlamat" promptText="Opsional" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="143.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label minWidth="80.0" text="Telepon" />
+            <TextField fx:id="txtTbhTelepon" promptText="Wajib diisi" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <Label fx:id="lblStatus" textFill="RED" />
+      <HBox alignment="CENTER_RIGHT" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button onAction="#simpanSupplier" prefWidth="80.0" text="Simpan" />
+            <Button onAction="#batal" prefWidth="80.0" text="Batal" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

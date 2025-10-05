@@ -1,15 +1,20 @@
 package com.gudang.controller;
 
+import java.io.IOException;
 import com.gudang.model.Supplier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class SupplierController {
 
@@ -18,12 +23,6 @@ public class SupplierController {
     @FXML private TableColumn<Supplier, String> colNama;
     @FXML private TableColumn<Supplier, String> colAlamat;
     @FXML private TableColumn<Supplier, String> colTelepon;
-
-    @FXML private TextField txtAlamat;
-    @FXML private TextField txtCode;
-    @FXML private TextField txtNama;
-    @FXML private TextField txtTel;
-
     @FXML private Label lblStatus;
 
     private final ObservableList<Supplier> data = FXCollections.observableArrayList();
@@ -35,93 +34,53 @@ public class SupplierController {
         colAlamat.setCellValueFactory(new PropertyValueFactory<>("alamat"));
         colTelepon.setCellValueFactory(new PropertyValueFactory<>("telepon"));
         tblSupplier.setItems(data);
+    }
 
-        tblSupplier.getSelectionModel().selectedItemProperty().addListener(
-            (obs, oldSelection, newSelection) -> {
-                if (newSelection != null) {
-                    showSupplierDetails(newSelection);
+    // KOREKSI: Nama metode diubah agar sesuai dengan tujuannya (membuka form)
+    @FXML
+    private void bukaFormTambah(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TambahSupplier.fxml"));
+            Parent root = loader.load();
+            TambahSupplierController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setTitle("Tambah Supplier Baru");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            Supplier supplierBaru = controller.getResult();
+            if (supplierBaru != null) {
+                boolean isDuplicate = data.stream().anyMatch(s -> s.getKode().equalsIgnoreCase(supplierBaru.getKode()));
+                if (isDuplicate) {
+                    lblStatus.setText("Error: Kode supplier sudah ada.");
+                } else {
+                    data.add(supplierBaru);
+                    lblStatus.setText("Info: Supplier berhasil ditambahkan.");
                 }
             }
-        );
-    }
-    private void showSupplierDetails(Supplier supplier) {
-        txtCode.setText(supplier.getKode());
-        txtNama.setText(supplier.getNama());
-        txtAlamat.setText(supplier.getAlamat());
-        txtTel.setText(supplier.getTelepon());
-    }
-
-    @FXML
-    void tambahSupplier(ActionEvent event) {
-        String kode = txtCode.getText().trim();
-        String nama = txtNama.getText().trim();
-        String telepon = txtTel.getText().trim();
-        String alamat = txtAlamat.getText().trim();
-
-        if (kode.isEmpty() || nama.isEmpty() || telepon.isEmpty()) {
-            lblStatus.setText("Error: Kode, Nama, dan Telepon harus diisi.");
-            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            lblStatus.setText("Error: Gagal membuka form.");
         }
-
-        for (Supplier supplier : data) {
-            if (supplier.getKode().equalsIgnoreCase(kode)) {
-                lblStatus.setText("Error: Kode supplier sudah ada.");
-                return;
-            }
-        }
-
-        data.add(new Supplier(kode, nama, alamat, telepon));
-        clearFields();
-        lblStatus.setText("Info: Supplier berhasil ditambahkan.");
     }
 
+    // KOREKSI: Nama metode diubah
     @FXML
-    void editSupplier(ActionEvent event) {
+    private void bukaFormEdit(ActionEvent event) {
+        lblStatus.setText("Info: Fitur Edit belum diimplementasikan.");
+    }
+    
+    @FXML
+    private void hapusSupplier(ActionEvent event) {
         Supplier selected = tblSupplier.getSelectionModel().getSelectedItem();
-
-        if (selected == null) {
-            lblStatus.setText("Error: Pilih supplier yang akan di-edit.");
-            return;
-        }
-
-        String kode = txtCode.getText().trim();
-        String nama = txtNama.getText().trim();
-        String telepon = txtTel.getText().trim();
-        String alamat = txtAlamat.getText().trim();
-
-        if (kode.isEmpty() || nama.isEmpty() || telepon.isEmpty()) {
-            lblStatus.setText("Error: Kode, Nama, dan Telepon tidak boleh kosong.");
-            return;
-        }
-        selected.setKode(kode);
-        selected.setNama(nama);
-        selected.setAlamat(alamat);
-        selected.setTelepon(telepon);
-
-        tblSupplier.refresh();
-        clearFields();
-        lblStatus.setText("Info: Data supplier berhasil diperbarui.");
-    }
-
-    @FXML
-    void hapusSupplier(ActionEvent event) {
-        Supplier selected = tblSupplier.getSelectionModel().getSelectedItem();
-
         if (selected != null) {
             data.remove(selected);
-            clearFields();
             lblStatus.setText("Info: Supplier berhasil dihapus.");
         } else {
             lblStatus.setText("Error: Pilih supplier yang akan dihapus.");
         }
-    }
-
-    private void clearFields() {
-        txtCode.clear();
-        txtNama.clear();
-        txtAlamat.clear();
-        txtTel.clear();
-        tblSupplier.getSelectionModel().clearSelection();
     }
 }
 
