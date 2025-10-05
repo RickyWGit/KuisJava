@@ -15,5 +15,4 @@
       <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#loginAction" prefHeight="25.0" prefWidth="306.0" text="Login" />
       <Label fx:id="lblStatus" alignment="TOP_CENTER" prefHeight="17.0" prefWidth="317.0" textFill="RED" />
    </children>
-   
 </VBox>

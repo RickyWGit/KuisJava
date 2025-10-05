@@ -39,7 +39,6 @@
             <TextField fx:id="txtTbhTelepon" promptText="Wajib diisi" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <Label fx:id="lblStatus" textFill="RED" />
       <HBox alignment="CENTER_RIGHT" prefWidth="200.0" spacing="10.0">
          <children>
             <Button onAction="#simpanSupplier" prefWidth="80.0" text="Simpan" />
