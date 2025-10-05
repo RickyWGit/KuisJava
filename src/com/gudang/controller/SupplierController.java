@@ -1,6 +1,8 @@
 package com.gudang.controller;
 
 import java.io.IOException;
+import java.util.Optional;
+
 import com.gudang.model.Supplier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,7 +40,6 @@ public class SupplierController {
         tblSupplier.setItems(data);
     }
 
-    // KOREKSI: Nama metode diubah agar sesuai dengan tujuannya (membuka form)
     @FXML
     private void bukaFormTambah(ActionEvent event) {
         try {
@@ -53,7 +56,7 @@ public class SupplierController {
             Supplier supplierBaru = controller.getResult();
             if (supplierBaru != null) {
                 boolean isDuplicate = data.stream().anyMatch(s -> s.getKode().equalsIgnoreCase(supplierBaru.getKode()));
-                if (isDuplicate) {
+                if (isKodeDuplicate(supplierBaru.getKode())) {
                     lblStatus.setText("Error: Kode supplier sudah ada.");
                 } else {
                     data.add(supplierBaru);
@@ -95,7 +98,24 @@ public class SupplierController {
 
     @FXML
     private void hapusSupplier(ActionEvent event) {
+        Supplier selected = tblSupplier.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            lblStatus.setText("Error: Pilih supplier yang akan dihapus.");
+            return;
+        }
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Konfirmasi Hapus");
+        alert.setHeaderText("Hapus Supplier: " + selected.getNama());
+        alert.setContentText("Apakah Anda yakin ingin menghapus supplier ini?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            data.remove(selected);
+            lblStatus.setText("Info: Supplier berhasil dihapus.");
+        } else {
+            lblStatus.setText("Info: Aksi hapus dibatalkan.");
+        }
     }
 
     private boolean isKodeDuplicate(String kode) {

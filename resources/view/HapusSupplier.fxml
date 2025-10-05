@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gudang.controller.HapusSupplierController">
+    <children>
+        <Label text="Konfirmasi Hapus">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblConfirmMessage" text="Apakah Anda yakin ingin menghapus supplier ini?" textAlignment="CENTER" wrapText="true" />
+        <HBox alignment="CENTER" spacing="20.0">
+            <children>
+                <Button onAction="#hapus" prefWidth="80.0" style="-fx-background-color: #ff6b6b;" text="Hapus" textFill="WHITE" />
+                <Button onAction="#batal" prefWidth="80.0" text="Batal" />
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>

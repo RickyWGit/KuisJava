@@ -12,8 +12,6 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gudang.controller.SupplierController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="591.0" text="Manajemen Supplier" />
-      
-      <!-- KOREKSI: Menambahkan Label untuk pesan status -->
       <Label fx:id="lblStatus" alignment="CENTER" prefWidth="591.0" textFill="RED">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -22,18 +20,17 @@
             <Insets bottom="5.0" top="5.0" />
          </VBox.margin>
       </Label>
-      
+
       <TableView fx:id="tblSupplier" prefHeight="200.0" prefWidth="200.0">
-        <columns>
-          <TableColumn fx:id="colKode" prefWidth="146.0" text="Kode Supplier" />
-          <TableColumn fx:id="colNama" minWidth="1.0" prefWidth="148.0" text="Nama Supplier" />
-          <TableColumn fx:id="colAlamat" prefWidth="148.0" text="Alamat" />
-          <TableColumn fx:id="colTelepon" prefWidth="148.0" text="Telepon" />
-        </columns>
+         <columns>
+            <TableColumn fx:id="colKode" prefWidth="146.0" text="Kode Supplier" />
+            <TableColumn fx:id="colNama" minWidth="1.0" prefWidth="148.0" text="Nama Supplier" />
+            <TableColumn fx:id="colAlamat" prefWidth="148.0" text="Alamat" />
+            <TableColumn fx:id="colTelepon" prefWidth="148.0" text="Telepon" />
+         </columns>
       </TableView>
       <HBox prefHeight="24.0" prefWidth="591.0">
          <children>
-            <!-- KOREKSI: Mengubah onAction agar memanggil metode yang benar -->
             <Button mnemonicParsing="false" onAction="#bukaFormTambah" prefHeight="25.0" prefWidth="171.0" text="Tambah Supplier" />
             <Button mnemonicParsing="false" onAction="#bukaFormEdit" prefHeight="25.0" prefWidth="189.0" text="Edit Supplier" />
             <Button mnemonicParsing="false" onAction="#hapusSupplier" prefHeight="25.0" prefWidth="162.0" text="Hapus Supplier" />
