@@ -69,18 +69,50 @@ public class SupplierController {
     // KOREKSI: Nama metode diubah
     @FXML
     private void bukaFormEdit(ActionEvent event) {
-        lblStatus.setText("Info: Fitur Edit belum diimplementasikan.");
+        Supplier selected = tblSupplier.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            lblStatus.setText("Error: Pilih supplier yang akan di-edit.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditSupplier.fxml"));
+            Parent root = loader.load();
+            EditSupplierController controller = loader.getController();
+            controller.initData(selected);
+
+            Stage stage = createModalStage("Edit Supplier", root);
+            stage.showAndWait();
+
+            if (controller.isSaved()) {
+                tblSupplier.refresh();
+                lblStatus.setText("Info: Data supplier berhasil diperbarui.");
+            }
+        } catch (IOException e) {
+            handleLoadError(e);
+        }
     }
-    
+
     @FXML
     private void hapusSupplier(ActionEvent event) {
-        Supplier selected = tblSupplier.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            data.remove(selected);
-            lblStatus.setText("Info: Supplier berhasil dihapus.");
-        } else {
-            lblStatus.setText("Error: Pilih supplier yang akan dihapus.");
-        }
+
+    }
+
+    private boolean isKodeDuplicate(String kode) {
+        return data.stream().anyMatch(s -> s.getKode().equalsIgnoreCase(kode));
+    }
+
+    private Stage createModalStage(String title, Parent root) {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        return stage;
+    }
+
+    private void handleLoadError(IOException e) {
+        e.printStackTrace();
+        lblStatus.setText("Error: Gagal membuka halaman baru.");
     }
 }
 
