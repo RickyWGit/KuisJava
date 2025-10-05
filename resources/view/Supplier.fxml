@@ -9,24 +9,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="591.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gudang.controller.SupplierController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="5.0" prefWidth="591.0" text="Manajemen Supplier" />
       <HBox prefHeight="22.0" prefWidth="300.0">
          <children>
-            <TextField fx:id="txtCode" text="Kode" />
-            <TextField fx:id="txtNama" text="Nama" />
-            <TextField fx:id="txtAlamat" text="Alamat" />
-            <TextField fx:id="txtTel" text="Telepon" />
+            <TextField fx:id="txtCode" promptText="Kode" />
+            <TextField fx:id="txtNama" promptText="Nama" />
+            <TextField fx:id="txtAlamat" promptText="Alamat" />
+            <TextField fx:id="txtTel" promptText="Telepon" />
          </children>
       </HBox>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tblSupplier" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="146.0" text="Kode Supplier" />
-          <TableColumn minWidth="1.0" prefWidth="148.0" text="Nama Supplier" />
-            <TableColumn prefWidth="148.0" text="Alamat" />
-            <TableColumn prefWidth="148.0" text="Telepon" />
+          <TableColumn fx:id="colKode" prefWidth="146.0" text="Kode Supplier" />
+          <TableColumn fx:id="colNama" minWidth="1.0" prefWidth="148.0" text="Nama Supplier" />
+            <TableColumn fx:id="colAlamat" prefWidth="148.0" text="Alamat" />
+            <TableColumn fx:id="colTelepon" prefWidth="148.0" text="Telepon" />
         </columns>
       </TableView>
       <HBox prefHeight="24.0" prefWidth="591.0">
@@ -42,5 +41,6 @@
             <Insets left="30.0" right="3.0" />
          </padding>
       </HBox>
+      <Label fx:id="lblStatus" alignment="CENTER" prefWidth="600.0" textFill="RED" />
    </children>
 </VBox>

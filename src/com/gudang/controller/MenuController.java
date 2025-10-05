@@ -13,9 +13,7 @@ public class MenuController {
     private void openBarang() {
         try {
             Stage stage = new Stage();
-            // KOREKSI: Typo "-" diubah menjadi "="
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Barang.fxml"));
-            // KOREKSI: Menggunakan Parent untuk menampung hasil load()
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -31,7 +29,6 @@ public class MenuController {
     private void openSupplier() {
         try {
             Stage stage = new Stage();
-            // KOREKSI: Typo path "/vwe/supplier.fxml" diubah menjadi "/view/Supplier.fxml" (asumsi)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Supplier.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
